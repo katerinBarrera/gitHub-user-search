@@ -1,0 +1,38 @@
+.custom_input {
+  display: flex;
+  align-items: center;
+  position: relative;
+  max-width: 100%;
+}
+
+.input {
+  font-size: 18px;
+  padding: 8px 20px;
+  width: 100%;
+  padding-right: 10px;
+  outline: none;
+  background: #ffffff;
+  color: #464646;
+  border: 1px solid #7b88dc;
+  border-radius: 50px;
+  box-shadow: 5px 4px 5px 2px #e2e2e2;
+  transition: 0.3s ease;
+}
+
+.input:focus {
+  background: #ffffff;
+  border: 1px solid #7b88dc;
+  border-radius: 60px;
+}
+
+.input::placeholder {
+  color: #d3d3d3;
+}
+
+.svg_icon {
+  position: absolute;
+  right: 35px;
+  cursor: pointer;
+  width: 18px;
+  height: 25px;
+}

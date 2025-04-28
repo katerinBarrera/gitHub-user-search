@@ -1,0 +1,200 @@
+<div class=" d-flex flex-column justify-content-center align-items-center aling-content-center mb-0 text-muted h-100"
+  *ngIf="!repoList.length && showNoPublicRepositoryMessage ">
+  <span class="text-center">
+    <img
+      src="https://cdn3d.iconscout.com/3d/premium/thumb/web-page-security-3d-icon-download-in-png-blend-fbx-gltf-file-formats--protection-cyber-pack-crime-icons-8530244.png"
+      alt="404" class="img-fluid" />
+  </span>
+  <span class="px-5 text-center">
+    ¡Vaya! No encontramos repositorios públicos para el usuario
+    <label class=" mb-4 text-center gap-2">
+      {{'@' + username}}
+    </label>.
+    <br />
+    ¡Podrías intentar con otro usuario!
+  </span>
+  <a href="#" routerLink="/search" class="buttonGoBack mt-4">
+    <lucide-icon [img]="userSearch
+        " class="my-icon aling-content-center svgIcon" color=" #fff" strokeWidth="2" size="30"></lucide-icon>
+  </a>
+</div>
+
+<div class=" d-flex flex-column justify-content-center align-items-center aling-content-center mb-0 text-muted h-100"
+  *ngIf="showNoFoundMessage">
+  <img
+    src="https://cdn3d.iconscout.com/3d/premium/thumb/404-3d-illustration-download-in-png-blend-fbx-gltf-file-formats--error-page-not-found-alert-ouuu-scenes-pack-people-illustrations-2526919.png"
+    alt="404" class="img-fluid" />
+  <span class="px-5 text-center">
+    ¡Vaya! El usuario
+    <label class=" text-center gap-2">
+      {{ '@' + username }}
+    </label> no existe, puede que haya un pequeño error
+    con el nombre.
+    <br />
+    ¡Revisa y vuelve a intentarlo!
+  </span>
+  <a href="#" routerLink="/search" class="buttonGoBack mt-4">
+    <lucide-icon [img]="userSearch
+        " class="my-icon aling-content-center svgIcon" color=" #fff" strokeWidth="2" size="30"></lucide-icon>
+  </a>
+
+</div>
+
+
+<div class="container ">
+  <div class="pt-5 aling-content-center gap-4" *ngIf="showPageUser">
+    <div class="pageButtons p-4">
+      <a href="#" routerLink="/search" class=" ">
+        <lucide-icon [img]="GoBack" class="my-icon aling-content-center " color=" #fff" strokeWidth="2"
+          size="35"></lucide-icon>
+      </a>
+    </div>
+    <h1 class="pt-2 text-center ">Listado de repositorios del usuario:</h1>
+    <br />
+    <h1 class=" mb-4 text-center gap-2">
+
+      <img alt="userImg" src="{{avatarUser}}" loading="eager" *ngIf="avatarUser"
+        class="avatar img-thumbnail img-fluid " />
+      {{'@' + username}}
+    </h1>
+
+  </div>
+
+
+  <div *ngIf="loading" class="spinner-overlay">
+    <div class="spinner"></div>
+  </div>
+
+
+
+  <div class="row pb-5" *ngIf="!loading && showPageUser">
+    <div class="mb-3" *ngIf="showPageUser">
+      <form (ngSubmit)="loadRepos(true)" class="row px-4">
+        <div class="col-12 col-md-4 ">
+
+          <label for="language">Lenguaje de programación:</label>
+          <div class="custom-select">
+            <select id="language" [(ngModel)]="filters.language" name="language" class="select">
+              <option value="">Seleccionar...</option>
+              <option value="CSS">CSS</option>
+              <option value="HTML">HTML</option>
+              <option value="JavaScript">JavaScript</option>
+              <option value="TypeScript">TypeScript</option>
+              <option value="PHP">PHP</option>
+              <option value="Python">Python</option>
+              <option value="Ruby">Ruby</option>
+              <option value="Astro">Astro</option>
+              <option value="Svelte">Svelte</option>
+              <option value="MDX">MDX</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 ">
+
+          <label for="sort">Ordenar por:</label>
+          <div class="custom-select">
+            <select id="sort" [(ngModel)]="filters.sort" name="sort" class="select">
+              <option value="">Seleccionar...</option>
+              <option value="full_name">Alfabéticamente</option>
+              <option value="created">Fecha de creación</option>
+              <option value="updated">Fecha de actualización</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4 d-flex gap-2 align-items-end">
+          <div class="w-100">
+            <label for="stars">Estrellas mínimas:</label>
+            <div class="custom-input">
+              <input type="number" id="stars" [(ngModel)]="filters.stars" name="stars" placeholder="Escribir..."
+                class="input">
+            </div>
+
+          </div>
+
+          <button type="submit " class="shadow shadowHov px-3 py-3 aling-content-center py-1 rounded-circle">
+            <lucide-icon [img]="search" color="#fff" class="svg_icon "></lucide-icon>
+
+          </button>
+        </div>
+
+      </form>
+    </div>
+    <div *ngFor="let repo of repoList" class="col col-sm-4 d-flex justify-content-center my-3">
+      <div class="card shadow" style="width: 18rem;">
+        <div class="card-body d-flex flex-column justify-content-between">
+          <div class="gap-2">
+            <h5 class="card-title">{{repo.name}}</h5>
+          </div>
+          <div class="">
+            <p class="card-text py-2 mb-0 text-muted" *ngIf="repo.description">{{repo.description}}</p>
+            <div class="card-text text-muted d-flex flex-column justify-content-center align-items-center  "
+              *ngIf="!repo.description">
+              <img
+                src="https://cdn3d.iconscout.com/3d/premium/thumb/not-found-3d-icon-download-in-png-blend-fbx-gltf-file-formats--no-results-result-data-empty-pack-seo-web-icons-6634745.png"
+                alt="404" class="img-fluid" width="80px" />
+              <span>
+                Sin descripción disponible
+              </span>
+            </div>
+            <div class="py-2">
+              <lucide-icon [img]="Star" class="my-icon" color="#FFD63A"></lucide-icon>
+              {{repo.stargazers_count}}
+            </div>
+            <div class="py-2">
+              Fecha creación: {{(repo.created_at).split("T")[0]}}
+            </div>
+            <div class="py-2">
+              Fecha actualización: {{(repo.updated_at).split("T")[0]}}
+            </div>
+            <div class="text-primary py-2">Lenguaje principal: <b>{{repo?.language ?? "No registra"}}</b></div>
+            <a href={{repo.html_url}} target="_blank" class="btn btn-primary d-flex justify-content-center">Ir a
+              repositorio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class=" pb-4 d-flex flex-column justify-content-center text-muted
+     " *ngIf="!repoList.length && !loading && showPageUser  ">
+    <span class="text-center">
+      <img
+        src="https://cdn3d.iconscout.com/3d/premium/thumb/not-found-3d-icon-download-in-png-blend-fbx-gltf-file-formats--no-results-result-data-empty-pack-seo-web-icons-6634745.png"
+        alt="404" class="img-fluid" width="200px" height="20px" />
+    </span>
+    <span class="px-5 text-center">
+      ¡Vaya! No encontramos repositorios públicos para el usuario
+      <label class=" mb-4 text-center gap-2">
+        {{'@' + username}}
+      </label>.
+      <br />
+      ¡Podrías intentar con otros filtros!
+    </span>
+
+
+  </div>
+
+  <div class="pagination py-4 gap-2" *ngIf="filters.lastPage && repoList.length">
+    <button class="pageButtons " (click)="loadFirstPage()" [disabled]="filters.page === 1">
+      <lucide-icon [img]="firstPage" class="my-icon aling-content-center" color=" #fff" strokeWidth="2"
+        size="35"></lucide-icon>
+    </button>
+    <button class="pageButtons" (click)="loadPreviousPage()" [disabled]="filters.page === 1">
+      <lucide-icon [img]="previosPage" class="my-icon aling-content-center" color=" #fff" strokeWidth="2"
+        size="35"></lucide-icon>
+    </button>
+    <span>Página {{ filters.page }} de {{filters.lastPage}}</span>
+    <button class="pageButtons" (click)="loadNextPage()" [disabled]="filters.page === filters.lastPage">
+      <lucide-icon [img]="nextPage" class="my-icon aling-content-center" color=" #fff" strokeWidth="2"
+        size="35"></lucide-icon>
+    </button>
+    <button class="pageButtons" (click)="loadLastPage()" [disabled]="filters.page === filters.lastPage">
+      <lucide-icon [img]="lastPageIcon" class="my-icon aling-content-center" color=" #fff" strokeWidth="2"
+        size="35"></lucide-icon>
+    </button>
+  </div>
+
+
+</div>

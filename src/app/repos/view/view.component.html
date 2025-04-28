@@ -1,0 +1,15 @@
+<div class="container h-100 d-flex bgColor">
+    <div class="d-flex flex-column justify-content-center align-items-center w-100">
+
+        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/web-coding-3d-icon-download-in-png-blend-fbx-gltf-file-formats--development-programming-website-graphics-pack-design-icons-5102465.png"
+            alt="404" width="350px" />
+        <h1 class="mb-5">Buscar usuario de GitHub</h1>
+        <div class="custom_input w-100">
+            <lucide-icon [img]="Search" color="#7b88dc" class="svg_icon " (click)="searchByUserName()"></lucide-icon>
+            <input class="input" type="text" placeholder="Escribir..." [(ngModel)]="username"
+                (keyup.enter)="searchByUserName()">
+        </div>
+        <label class="mt-2">Por favor, ingrese el nombre de un usuario para consultar sus repositorios de
+            GitHub.</label>
+    </div>
+</div>
