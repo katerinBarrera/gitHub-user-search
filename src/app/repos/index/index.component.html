@@ -127,7 +127,8 @@
           <div class="gap-2">
             <h5 class="card-title">{{repo.name}}</h5>
           </div>
-          <div class="">
+          <div>
+
             <p class="card-text py-2 mb-0 text-muted" *ngIf="repo.description">{{repo.description}}</p>
             <div class="card-text text-muted d-flex flex-column justify-content-center align-items-center  "
               *ngIf="!repo.description">
@@ -138,6 +139,8 @@
                 Sin descripción disponible
               </span>
             </div>
+          </div>
+          <div class="">
             <div class="py-2">
               <lucide-icon [img]="Star" class="my-icon" color="#FFD63A"></lucide-icon>
               {{repo.stargazers_count}}
